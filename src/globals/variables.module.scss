@@ -1,0 +1,50 @@
+/**
+ * Colors
+ */
+$black: #313639;
+$jet-black: black;
+$grey: #6e6e6e;
+$light-grey: #b4b4b4;
+$white: #fff;
+$blue: #b0cfff;
+$pink: #ffb0d9;
+$green: #6cdb9c;
+$red: #862b1d;
+
+/**
+ * Theme
+ */
+$primary-color: $pink;
+$secondary-color: $blue;
+$background-default: $white;
+$background-body: $secondary-color;
+
+/**
+ * Borders
+ */
+$border-default: 1px solid $light-grey;
+
+$border-radius-default: 4px;
+$border-radius-small: 2px;
+$border-radius-large: 8px;
+$border-radius-xl: 40px;
+
+/**
+ * Effects
+ */
+$text-shadow-default: 1px 1px 2px rgba(0, 0, 0, 0.2);
+$box-shadow-default: 2px 2px 4px rgba(0, 0, 0, 0.3);
+$box-shadow-vertical: 0px 2px 4px rgba(0, 0, 0, 0.3);
+
+/**
+ * Breakpoints
+ */
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Helper function to calculate the gutter
+$gutter-base: 4px;
+@function gutter($n: 1) {
+  @return $n * $gutter-base;
+}
