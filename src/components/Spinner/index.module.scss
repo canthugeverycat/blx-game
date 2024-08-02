@@ -6,13 +6,6 @@ $item-size: 50px;
   itemSize: $item-size;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: gutter(4);
-}
-
 .spinbox {
   position: relative;
   outline: 10px solid teal;

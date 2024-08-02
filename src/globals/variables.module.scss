@@ -10,6 +10,15 @@ $blue: #b0cfff;
 $pink: #ffb0d9;
 $green: #6cdb9c;
 $red: #862b1d;
+$dark-purple: #1b1b42;
+
+$dark-teal: #10191f;
+$white: #fff;
+$purple: #9e72c3;
+$pink: #f0f;
+$mint: #0ff;
+$grey: #6e6e6e;
+$gold: #f6af0f;
 
 /**
  * Theme
@@ -35,6 +44,11 @@ $border-radius-xl: 40px;
 $text-shadow-default: 1px 1px 2px rgba(0, 0, 0, 0.2);
 $box-shadow-default: 2px 2px 4px rgba(0, 0, 0, 0.3);
 $box-shadow-vertical: 0px 2px 4px rgba(0, 0, 0, 0.3);
+
+$box-shadow-purple-glow:
+  0 0 60px 30px $white,
+  0 0 100px 60px $pink,
+  0 0 140px 90px $purple;
 
 /**
  * Breakpoints

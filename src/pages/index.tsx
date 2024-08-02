@@ -1,18 +1,22 @@
+import Coin from '@/components/Coin';
 import Spinner from '@/components/Spinner';
 import { useSpinContext } from '@/utils/SpinContext';
-import React, { useState } from 'react';
+import React from 'react';
 
 import styles from './index.module.scss';
 
 const App = () => {
   const items = Array.from({ length: 20 }, (_, i) => (i % 20) + 1);
-  const [count, setCount] = useState(1);
 
-  const { spinAll, isSpinning } = useSpinContext();
+  const { spinAll, isSpinning, count, setCount } = useSpinContext();
 
   return (
     <div className={styles.app}>
-      <h1 className={styles.title}>Spin-o-matic-4000</h1>
+      <h1 className={styles.title}>
+        Spin
+        <Coin />
+        matic
+      </h1>
 
       <div className={styles['count-container']}>
         {[1, 2, 3, 4].map((n) => (
@@ -27,9 +31,11 @@ const App = () => {
         ))}
       </div>
 
-      {Array.from({ length: count }).map((_, i) => (
-        <Spinner id={i + 1} {...{ items }} preselectItem={10} />
-      ))}
+      <div className={styles.container}>
+        {Array.from({ length: count }).map((_, i) => (
+          <Spinner id={i + 1} {...{ items }} preselectItem={10} />
+        ))}
+      </div>
 
       <button
         className={styles.button}

@@ -1,0 +1,90 @@
+@import '@/globals/animations.module.scss';
+@import '@/globals/variables.module.scss';
+
+$size: 50px;
+$color: $purple;
+$inner-color: darken($purple, 10%);
+
+.wrapper {
+  position: relative;
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+}
+
+.coin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  animation: rotateY 2s infinite linear;
+  margin: auto;
+  background: $inner-color;
+  width: 10%;
+  height: 100%;
+  font-size: $size;
+
+  &:before,
+  &:after {
+    @extend .front;
+  }
+
+  &:after {
+    @extend .back;
+
+    transform: rotateY(-90deg);
+  }
+}
+
+.front {
+  position: absolute;
+  right: -0.396em;
+  transform: rotateY(-90deg);
+  backface-visibility: hidden;
+  border-radius: 50%;
+  background: $color;
+  width: $size;
+  height: $size;
+  overflow: hidden;
+  content: '';
+}
+
+.back {
+  @extend .front;
+
+  left: -0.396em;
+
+  transform: rotateY(90deg);
+}
+
+.inner {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: $inner-color;
+  width: calc($size * 0.75);
+  height: calc($size * 0.75);
+}
+
+.emblem {
+  width: calc($size * 0.5);
+  height: calc($size * 0.5);
+}
+
+.coin:before,
+.coin:after {
+  transform: rotateY(90deg);
+  backface-visibility: hidden;
+  background: $inner-color;
+}
+.coin:after {
+  left: -0.396em;
+  transform: rotateY(-90deg);
+}

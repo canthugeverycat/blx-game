@@ -5,6 +5,8 @@ interface SpinContextType {
   onSpinStart: () => void;
   onSpinEnd: (result: number) => void;
   isSpinning: boolean;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SpinContext = createContext<SpinContextType | null>(null);
@@ -24,6 +26,7 @@ type Props = {
 export const SpinProvider = ({ children }: Props) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [activeSpinners, setActiveSpinners] = useState(0);
+  const [count, setCount] = useState(1);
 
   const spinAll = () => {
     setIsSpinning(true);
@@ -47,7 +50,7 @@ export const SpinProvider = ({ children }: Props) => {
 
   return (
     <SpinContext.Provider
-      value={{ spinAll, onSpinEnd, onSpinStart, isSpinning }}
+      value={{ spinAll, onSpinEnd, onSpinStart, isSpinning, count, setCount }}
     >
       {children}
     </SpinContext.Provider>

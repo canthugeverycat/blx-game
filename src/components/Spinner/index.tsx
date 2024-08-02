@@ -57,25 +57,23 @@ const Spinner = ({ id, preselectItem = 4, items }: Props) => {
   }, [isSpinning]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.spinbox} ref={containerRef}>
-        <animated.div
-          className={styles['spinbox-wrapper']}
-          style={animationConfig}
-        >
-          {items.map((item, i) => (
-            <div
-              key={item}
-              className={`${styles['spinbox-item']} ${focusedIndex === i ? styles['spinbox-item--selected'] : ''}`}
-              style={{
-                transform: `translateX(${items.length * itemSize * positions[i]}px) scale(${focusedIndex === i ? '1.5' : '1'})`,
-              }}
-            >
-              {item}
-            </div>
-          ))}
-        </animated.div>
-      </div>
+    <div className={styles.spinbox} ref={containerRef}>
+      <animated.div
+        className={styles['spinbox-wrapper']}
+        style={animationConfig}
+      >
+        {items.map((item, i) => (
+          <div
+            key={item}
+            className={`${styles['spinbox-item']} ${focusedIndex === i ? styles['spinbox-item--selected'] : ''}`}
+            style={{
+              transform: `translateX(${items.length * itemSize * positions[i]}px) scale(${focusedIndex === i ? '1.5' : '1'})`,
+            }}
+          >
+            {item}
+          </div>
+        ))}
+      </animated.div>
     </div>
   );
 };
