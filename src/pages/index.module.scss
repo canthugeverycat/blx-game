@@ -22,6 +22,20 @@ $item-size: 100px;
   text-transform: uppercase;
 }
 
+.count-container {
+  display: flex;
+  align-self: center;
+  margin-bottom: gutter(4);
+}
+
+.count {
+  &--active {
+    background: green;
+    color: white;
+    font-weight: 700;
+  }
+}
+
 .winnings {
   outline: 4px solid teal;
 }

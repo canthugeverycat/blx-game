@@ -1,44 +1,37 @@
 import { useContainerWidth } from '@/hooks/useContainerWidth';
 import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
 import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
-import { arrangeChildren } from '@/utils/arrangeChildren';
-import { animated, easings, useSpring } from '@react-spring/web';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useSpinContext } from '@/utils/SpinContext';
+import { animated } from '@react-spring/web';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './index.module.scss';
 
 const itemSize = parseFloat(styles.itemSize);
 
 type Props = {
+  id: number;
   items: number[];
   preselectItem?: number;
 };
 
-const Spinner = ({ preselectItem = 4, items }: Props) => {
+const Spinner = ({ id, preselectItem = 4, items }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { containerWidth } = useContainerWidth(containerRef);
 
-  const [isSpinning, setIsSpinning] = useState(false);
+  const { isSpinning, onSpinStart, onSpinEnd } = useSpinContext();
+
   const [target, setTarget] = useState(preselectItem);
 
-  const handleSpinEnd = () => {
-    setIsSpinning(false);
-  };
-
   const { focusedIndex, animationConfig } = useSpinnerAnimation({
+    id,
     items,
     target,
     containerWidth,
     itemSize,
     preselectItem,
     isSpinning,
-    onAnimationEnd: handleSpinEnd,
+    onAnimationEnd: onSpinEnd,
   });
 
   const { positions } = useSpinnerPositions({
@@ -49,10 +42,19 @@ const Spinner = ({ preselectItem = 4, items }: Props) => {
     containerRef,
   });
 
-  const handleOnSpin = () => {
-    setTarget((prev) => prev + 20 + Math.floor(Math.random() * items.length));
-    setIsSpinning(true);
-  };
+  useEffect(() => {
+    if (isSpinning) {
+      const timeout = setTimeout(() => {
+        const result = Math.floor(Math.random() * items.length);
+
+        setTarget((prev) => prev + 20 * id + result);
+
+        onSpinStart();
+      }, 500 * id);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isSpinning]);
 
   return (
     <div className={styles.container}>
@@ -74,13 +76,6 @@ const Spinner = ({ preselectItem = 4, items }: Props) => {
           ))}
         </animated.div>
       </div>
-      <button
-        className={styles.button}
-        onClick={handleOnSpin}
-        disabled={isSpinning}
-      >
-        Spin
-      </button>
     </div>
   );
 };

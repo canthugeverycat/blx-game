@@ -32,14 +32,7 @@ export const useSpinnerPositions = ({
       });
       setPositions(newPositions);
     }
-  }, [
-    containerRef.current,
-    items.length,
-    itemSize,
-    focusedIndex,
-    containerWidth,
-    positions,
-  ]);
+  }, [items.length, itemSize, focusedIndex, containerWidth, positions]);
 
   useEffect(() => {
     updatePositions();

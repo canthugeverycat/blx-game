@@ -2,6 +2,7 @@ import { easings, useSpring } from '@react-spring/web';
 import { useCallback, useMemo, useState } from 'react';
 
 type Props = {
+  id: number;
   items: number[];
   target: number;
   containerWidth: number;
@@ -18,6 +19,7 @@ type SpringProps = {
 };
 
 export const useSpinnerAnimation = ({
+  id,
   items,
   target,
   containerWidth,
@@ -51,13 +53,15 @@ export const useSpinnerAnimation = ({
   const animationConfig = useSpring({
     marginLeft: `-${offset}px`,
     config: {
-      duration: isSpinning ? 4000 : 0,
+      duration: isSpinning ? 4000 + 2000 * id : 0,
       tension: 200,
       friction: 10,
       easing: easings.easeOutQuad,
     },
     reset: true,
-    onRest: () => onAnimationEnd(focusedIndex),
+    onRest: () => {
+      if (isSpinning) onAnimationEnd(focusedIndex);
+    },
     onChange: handleAnimationChange,
   });
 
