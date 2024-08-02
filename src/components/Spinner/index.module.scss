@@ -17,7 +17,7 @@ $item-size: 100px;
   position: relative;
   outline: 10px solid teal;
   padding: gutter(10) gutter(0);
-  width: 400px;
+  width: 80%;
   overflow: visible;
 
   &:after {
@@ -46,7 +46,7 @@ $item-size: 100px;
   height: $item-size;
   color: $black;
   font-weight: 700;
-  font-size: 48px;
+  font-size: $item-size/2;
   font-family: sans-serif;
   text-align: center;
 

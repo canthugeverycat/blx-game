@@ -1,5 +1,12 @@
+import { arrangeChildren } from '@/utils/arrangeChildren';
 import { animated, easings, useSpring } from '@react-spring/web';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import styles from './index.module.scss';
 
@@ -14,7 +21,6 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
 
   const [isSpinning, setIsSpinning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [overflowingChild, setOverflowingChild] = useState(0);
   const [positions, setPositions] = useState(
     Array.from({ length: items.length }, () => 0)
   );
@@ -28,6 +34,46 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
       : 0;
   }, [target, containerWidth]);
 
+  const handleAnimationChange = useCallback(
+    ({ value: { marginLeft } }: { value: { marginLeft: string } }) => {
+      const containerCenter = containerWidth / 2 + itemSize / 2;
+      const middleIndex = Math.round(
+        (parseFloat(marginLeft) * -1 + containerCenter) / itemSize - 1
+      );
+
+      const newFocusedIndex = middleIndex % items.length;
+
+      setFocusedIndex(newFocusedIndex);
+    },
+    [containerWidth, focusedIndex]
+  );
+
+  const updatePositions = useCallback(() => {
+    if (containerWidth) {
+      const newPositions = arrangeChildren({
+        container: containerRef,
+        length: items.length,
+        itemSize,
+        focusedIndex,
+        containerWidth,
+        positions,
+      });
+
+      setPositions(newPositions);
+    }
+  }, [
+    containerRef.current,
+    items.length,
+    itemSize,
+    focusedIndex,
+    containerWidth,
+    positions,
+  ]);
+
+  useEffect(() => {
+    updatePositions();
+  }, [focusedIndex]);
+
   const props = useSpring({
     marginLeft: `-${offset}px`,
     config: {
@@ -40,76 +86,8 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
     onRest: () => {
       setIsSpinning(false);
     },
-    onChange: ({ value: { marginLeft } }) => {
-      const containerCenter = containerWidth / 2 + itemSize / 2;
-      const middleIndex = Math.round(
-        (parseFloat(marginLeft) * -1 + containerCenter) / itemSize - 1
-      );
-      setFocusedIndex(middleIndex % items.length);
-      if (containerRef.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const child =
-          containerRef.current.firstElementChild?.children[overflowingChild];
-        const childRect = child?.getBoundingClientRect();
-        // console.log(
-        //   `${overflowingChild} : ${(childRect?.right || 0) < containerRect.left}`
-        // );
-        if (childRect && childRect.right < containerRect.left) {
-          setPositions((prevPositions) => {
-            const newPositions = prevPositions.map((item, i) =>
-              i === overflowingChild ? item + 1 : item
-            );
-            // console.log(
-            //   `Setting ${overflowingChild} to ${newPositions[overflowingChild]}`
-            // );
-            return newPositions;
-          });
-          setOverflowingChild((prev) => (prev === 19 ? 0 : prev + 1));
-        }
-      }
-    },
+    onChange: handleAnimationChange,
   });
-
-  const arrangeChildren = (center: number) => {
-    if (containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-
-      for (let x = 0; x < items.length; x++) {
-        const child = containerRef.current.firstElementChild?.children[x];
-        const childRect = child?.getBoundingClientRect();
-
-        if (childRect && childRect.right < containerRect.left) {
-          setPositions((prevPositions) => {
-            const newPositions = prevPositions.map((item, i) =>
-              i === x ? item + 1 : item
-            );
-            return newPositions;
-          });
-        }
-
-        if (childRect && childRect.left > containerRect.right) {
-          setPositions((prevPositions) => {
-            const newPositions = prevPositions.map((item, i) =>
-              i === x ? item - 1 : item
-            );
-            return newPositions;
-          });
-        }
-
-        const spaceToCenter = (containerRect.width - itemSize) / 2;
-        const itemsToCenter = Math.ceil(spaceToCenter / itemSize);
-        console.log(itemsToCenter);
-        console.log(
-          `center: ${center}, itemsToCenter: ${itemsToCenter}, items.length: ${items.length}`
-        );
-        const startWrappedIndex =
-          (center - itemsToCenter + items.length) % items.length;
-        console.log(startWrappedIndex);
-
-        setOverflowingChild(startWrappedIndex);
-      }
-    }
-  };
 
   const handleOnSpin = () => {
     setTarget((prev) => prev + 20 + Math.floor(Math.random() * items.length));
@@ -124,17 +102,10 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
 
   useEffect(() => {
     updateContainerWidth();
+    updatePositions();
 
     const handleResize = () => {
-      // if (
-      //   containerRef.current &&
-      //   containerWidth &&
-      //   containerWidth < containerRef.current.clientWidth
-      // ) {
-      //   console.log('Container became bigger - updating children...');
-      // }
       updateContainerWidth();
-      arrangeChildren(focusedIndex);
     };
 
     window.addEventListener('resize', handleResize);
@@ -161,7 +132,11 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
           ))}
         </animated.div>
       </div>
-      <button className={styles.button} onClick={handleOnSpin}>
+      <button
+        className={styles.button}
+        onClick={handleOnSpin}
+        disabled={isSpinning}
+      >
         Spin
       </button>
     </div>
