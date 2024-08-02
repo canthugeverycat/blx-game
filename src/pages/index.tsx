@@ -1,5 +1,7 @@
+import Button from '@/components/Button';
 import Coin from '@/components/Coin';
 import CountSelector from '@/components/CountSelector';
+import Header from '@/components/Header';
 import Spinbox from '@/components/Spinbox';
 import shuffleArray from '@/utils/shuffleArray';
 import { useSpinContext } from '@/utils/SpinContext';
@@ -29,25 +31,12 @@ const App = () => {
         transform: 'scale(1)',
         config: { duration: 300, easing: easings.easeOutElastic },
       },
-      leave: {
-        opacity: 0,
-        config: { duration: 300, easing: easings.easeInBack },
-      },
     }
   );
 
   return (
     <div className={styles.app}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          Spin
-          <Coin isAnimated={true} color="purple" />
-          matic
-        </h1>
-
-        <CountSelector />
-      </div>
-
+      <Header />
       <div className={styles.container}>
         {popInTransition((animStyle, i) => (
           <animated.div
@@ -58,16 +47,12 @@ const App = () => {
             <Spinbox id={i + 1} items={items[i]} preselectItem={9} />
           </animated.div>
         ))}
-      </div>
 
-      <button
-        className={styles.button}
-        onClick={() => spinAll()}
-        disabled={isSpinning}
-      >
-        Spin
-      </button>
-      <div className={styles.winnings}></div>
+        <Button onClick={() => spinAll()} disabled={isSpinning}>
+          Spin
+        </Button>
+      </div>
+      <div className={styles.footer}>August 2024</div>
     </div>
   );
 };

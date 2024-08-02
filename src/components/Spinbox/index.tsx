@@ -33,7 +33,9 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
     itemSize,
     preselectItem,
     isSpinning,
-    onAnimationEnd: onSpinEnd,
+    onAnimationEnd: (i) => {
+      onSpinEnd(items[i]);
+    },
   });
 
   const { positions } = useSpinnerPositions({

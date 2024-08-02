@@ -4,26 +4,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
   padding: gutter(4);
   height: 100vh;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  gap: gutter(8);
-}
-.title {
-  display: flex;
-  align-items: center;
-
-  color: $gold;
-  font-weight: 700;
-  font-size: 60px;
-  font-family: 'Righteous', sans-serif;
-  text-align: center;
-  text-transform: uppercase;
 }
 
 .container {
@@ -37,6 +20,10 @@
   align-items: center;
 }
 
-.winnings {
-  outline: 4px solid teal;
+.footer {
+  margin-top: gutter(10);
+  color: lighten($dark-purple, 10%);
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
 }

@@ -1,0 +1,16 @@
+@import '@/globals/variables.module.scss';
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: gutter(2);
+  color: $white;
+  color: $light-grey;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.value {
+  color: $white;
+  font-weight: 700;
+}

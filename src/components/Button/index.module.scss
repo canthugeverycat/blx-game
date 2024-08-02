@@ -1,0 +1,50 @@
+@import '@/globals/variables.module.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  gap: gutter();
+  opacity: 1;
+
+  cursor: pointer;
+
+  margin: gutter(10) auto auto auto;
+
+  border: none;
+
+  background: linear-gradient(darken($mint, 10%), $white, darken($mint, 10%));
+
+  padding: gutter(3) gutter(5);
+
+  min-width: 300px;
+  color: $jet-black;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+
+  text-align: center;
+  text-shadow: $text-shadow-default;
+  text-transform: uppercase;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: linear-gradient(
+      darken($mint, 10%) 20%,
+      $white,
+      darken($mint, 10%) 80%
+    );
+  }
+
+  &:disabled {
+    background: linear-gradient($grey 20%, $light-grey, $grey 80%);
+  }
+
+  &:disabled:hover {
+    cursor: initial;
+    background: linear-gradient($grey 20%, $light-grey, $grey 80%);
+  }
+}

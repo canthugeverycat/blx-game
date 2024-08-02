@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 
 type Props = {
   isAnimated?: boolean;
-  size?: 'm' | 's';
+  size?: 'm' | 's' | 'xs';
   color?: 'gold' | 'purple' | 'dark';
 };
 

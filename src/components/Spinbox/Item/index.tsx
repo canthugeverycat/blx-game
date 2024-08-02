@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Item = ({ item, isSelected, offset }: Props) => {
-  const isWinningNumber = useMemo(() => isPrime(item), []);
+  const isWinningNumber = useMemo(() => isPrime(item), [item]);
 
   return (
     <div

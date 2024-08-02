@@ -1,0 +1,32 @@
+@import '@/globals/variables.module.scss';
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: center;
+  width: calc(80% + 60px);
+  max-width: $item-size * 18;
+}
+
+.header > * {
+  flex: 1 1 50%;
+  box-sizing: border-box;
+
+  &:nth-child(3) {
+    flex-basis: 100%;
+    margin-top: gutter(10);
+    margin-bottom: gutter(8);
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+
+  color: $gold;
+  font-weight: 700;
+  font-size: 60px;
+  font-family: 'Righteous', sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}

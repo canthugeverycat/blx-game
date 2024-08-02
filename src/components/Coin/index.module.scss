@@ -3,6 +3,7 @@
 
 $size: 50px;
 $size--s: 40px;
+$size--xs: 20px;
 
 .wrapper {
   position: relative;
@@ -117,6 +118,33 @@ $size--s: 40px;
   .emblem {
     width: calc($size--s * 0.5);
     height: calc($size--s * 0.5);
+  }
+}
+
+.wrapper.size-xs {
+  width: $size--xs;
+  height: $size--xs;
+
+  .coin {
+    font-size: $size--xs;
+  }
+
+  .coin:before,
+  .coin:after,
+  .front,
+  .back {
+    width: $size--xs;
+    height: $size--xs;
+  }
+
+  .inner {
+    width: calc($size--xs * 0.75);
+    height: calc($size--xs * 0.75);
+  }
+
+  .emblem {
+    width: calc($size--xs * 0.5);
+    height: calc($size--xs * 0.5);
   }
 }
 

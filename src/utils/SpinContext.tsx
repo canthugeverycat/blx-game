@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import isPrime from './isPrime';
+
 interface SpinContextType {
   spinAll: () => void;
   onSpinStart: () => void;
@@ -7,6 +9,7 @@ interface SpinContextType {
   isSpinning: boolean;
   count: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
+  winnings: number;
 }
 
 const SpinContext = createContext<SpinContextType | null>(null);
@@ -27,6 +30,7 @@ export const SpinProvider = ({ children }: Props) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [activeSpinners, setActiveSpinners] = useState(0);
   const [count, setCount] = useState(1);
+  const [winnings, setWinnings] = useState(0);
 
   const spinAll = () => {
     setIsSpinning(true);
@@ -45,12 +49,22 @@ export const SpinProvider = ({ children }: Props) => {
 
     setActiveSpinners(newActiveSpinners);
 
-    console.log('spinning ended with', result);
+    if (isPrime(result)) {
+      setWinnings((prev) => prev + result);
+    }
   };
 
   return (
     <SpinContext.Provider
-      value={{ spinAll, onSpinEnd, onSpinStart, isSpinning, count, setCount }}
+      value={{
+        spinAll,
+        onSpinEnd,
+        onSpinStart,
+        isSpinning,
+        count,
+        setCount,
+        winnings,
+      }}
     >
       {children}
     </SpinContext.Provider>
