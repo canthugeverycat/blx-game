@@ -1,3 +1,4 @@
+import variables from '@/globals/variables.module.scss';
 import { useContainerWidth } from '@/hooks/useContainerWidth';
 import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
 import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
@@ -6,8 +7,9 @@ import { animated } from '@react-spring/web';
 import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './index.module.scss';
+import Item from './Item';
 
-const itemSize = parseFloat(styles.itemSize);
+const itemSize = parseFloat(variables.itemSize);
 
 type Props = {
   id: number;
@@ -15,7 +17,7 @@ type Props = {
   preselectItem?: number;
 };
 
-const Spinner = ({ id, preselectItem = 4, items }: Props) => {
+const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { containerWidth } = useContainerWidth(containerRef);
 
@@ -44,13 +46,17 @@ const Spinner = ({ id, preselectItem = 4, items }: Props) => {
 
   useEffect(() => {
     if (isSpinning) {
-      const timeout = setTimeout(() => {
-        const result = Math.floor(Math.random() * items.length);
+      const timeout = setTimeout(
+        () => {
+          const result = Math.floor(Math.random() * items.length);
+          const buffer = containerWidth > 768 ? 40 : 20;
 
-        setTarget((prev) => prev + 20 * id + result);
+          setTarget((prev) => prev + buffer * id + result);
 
-        onSpinStart();
-      }, 500 * id);
+          onSpinStart();
+        },
+        100 * id - 100
+      );
 
       return () => clearTimeout(timeout);
     }
@@ -58,24 +64,25 @@ const Spinner = ({ id, preselectItem = 4, items }: Props) => {
 
   return (
     <div className={styles.spinbox} ref={containerRef}>
-      <animated.div
-        className={styles['spinbox-wrapper']}
-        style={animationConfig}
-      >
-        {items.map((item, i) => (
-          <div
-            key={item}
-            className={`${styles['spinbox-item']} ${focusedIndex === i ? styles['spinbox-item--selected'] : ''}`}
-            style={{
-              transform: `translateX(${items.length * itemSize * positions[i]}px) scale(${focusedIndex === i ? '1.5' : '1'})`,
-            }}
-          >
-            {item}
-          </div>
-        ))}
+      <animated.div className={styles.wrapper} style={animationConfig}>
+        {items.map((item, i) => {
+          const offset = items.length * itemSize * positions[i];
+
+          return (
+            <Item
+              key={i}
+              isSelected={focusedIndex === i}
+              {...{ offset, item }}
+            />
+          );
+        })}
       </animated.div>
+      <div
+        className={`${styles.beam} ${isSpinning ? styles.animate : ''}`}
+      ></div>
+      <div className={styles.trackers}></div>
     </div>
   );
 };
 
-export default Spinner;
+export default Spinbox;

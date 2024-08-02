@@ -4,8 +4,16 @@ import React from 'react';
 import Emblem from '../../assets/emblem.svg';
 import styles from './index.module.scss';
 
-const Coin = () => (
-  <div className={styles.wrapper}>
+type Props = {
+  isAnimated?: boolean;
+  size?: 'm' | 's';
+  color?: 'gold' | 'purple' | 'dark';
+};
+
+const Coin = ({ isAnimated, size = 'm', color = 'gold' }: Props) => (
+  <div
+    className={`${styles.wrapper} ${isAnimated ? styles.animated : ''} ${styles['size-' + size]} ${styles['color-' + color]}`}
+  >
     <div className={styles.coin}>
       <div className={styles.front}>
         <div className={styles.inner}>

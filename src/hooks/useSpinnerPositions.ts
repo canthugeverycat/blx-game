@@ -1,4 +1,4 @@
-import { arrangeChildren } from '@/utils/arrangeChildren';
+import arrangeChildren from '@/utils/arrangeChildren';
 import { RefObject, useCallback, useEffect, useState } from 'react';
 
 type Props = {

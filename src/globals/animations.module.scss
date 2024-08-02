@@ -4,6 +4,14 @@
   }
 }
 
-// 360deg 100%
-// 90deg   x
-// x = 100 * 90)360
+@keyframes beam {
+  from {
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  75% {
+    transform: translate(-50%, -50%) scaleX(0.7);
+  }
+  to {
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+}

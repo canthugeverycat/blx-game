@@ -1,4 +1,4 @@
-export const arrangeChildren = ({
+const arrangeChildren = ({
   length,
   itemSize,
   focusedIndex,
@@ -42,3 +42,5 @@ export const arrangeChildren = ({
 
   return newPositions;
 };
+
+export default arrangeChildren;

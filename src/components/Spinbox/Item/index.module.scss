@@ -1,0 +1,30 @@
+@import '@/globals/variables.module.scss';
+
+.item {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: $item-size;
+  height: $item-size;
+  color: $black;
+  font-weight: 700;
+  font-size: $item-size/2;
+  font-family: sans-serif;
+}
+
+.active {
+  transition: transform 0.2s linear;
+
+  .value {
+    font-size: 16px;
+  }
+}
+
+.value {
+  position: absolute;
+  opacity: 0.7;
+  color: $black;
+  font-size: 12px;
+  font-family: 'Audiowide', sans-serif;
+}
