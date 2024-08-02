@@ -1,5 +1,9 @@
 @keyframes rotateY {
-  100% {
+  to {
     transform: rotateY(360deg);
   }
 }
+
+// 360deg 100%
+// 90deg   x
+// x = 100 * 90)360

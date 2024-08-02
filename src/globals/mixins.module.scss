@@ -1,0 +1,11 @@
+@mixin hoverBounce() {
+  transition: transform 0.2 linear;
+
+  &:hover {
+    transform: scale(0.95);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+}

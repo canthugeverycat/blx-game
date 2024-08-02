@@ -8,31 +8,22 @@
   height: 100vh;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: gutter(8);
+}
 .title {
   display: flex;
   align-items: center;
 
-  align-self: center;
   color: $gold;
   font-weight: 700;
   font-size: 60px;
   font-family: 'Righteous', sans-serif;
   text-align: center;
   text-transform: uppercase;
-}
-
-.count-container {
-  display: flex;
-  align-self: center;
-  margin-bottom: gutter(4);
-}
-
-.count {
-  &--active {
-    background: green;
-    color: white;
-    font-weight: 700;
-  }
 }
 
 .container {
