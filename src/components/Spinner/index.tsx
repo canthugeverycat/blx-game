@@ -1,3 +1,6 @@
+import { useContainerWidth } from '@/hooks/useContainerWidth';
+import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
+import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
 import { arrangeChildren } from '@/utils/arrangeChildren';
 import { animated, easings, useSpring } from '@react-spring/web';
 import React, {
@@ -13,80 +16,37 @@ import styles from './index.module.scss';
 const itemSize = parseFloat(styles.itemSize);
 
 type Props = {
+  items: number[];
   preselectItem?: number;
 };
 
-const Spinner = ({ preselectItem = 4 }: Props) => {
-  const items = Array.from({ length: 20 }, (_, i) => (i % 20) + 1);
+const Spinner = ({ preselectItem = 4, items }: Props) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { containerWidth } = useContainerWidth(containerRef);
 
   const [isSpinning, setIsSpinning] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [positions, setPositions] = useState(
-    Array.from({ length: items.length }, () => 0)
-  );
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  const [focusedIndex, setFocusedIndex] = useState(preselectItem);
   const [target, setTarget] = useState(preselectItem);
-  const offset = useMemo(() => {
-    return containerWidth
-      ? itemSize * (target + 1) - itemSize / 2 - containerWidth / 2
-      : 0;
-  }, [target, containerWidth]);
 
-  const handleAnimationChange = useCallback(
-    ({ value: { marginLeft } }: { value: { marginLeft: string } }) => {
-      const containerCenter = containerWidth / 2 + itemSize / 2;
-      const middleIndex = Math.round(
-        (parseFloat(marginLeft) * -1 + containerCenter) / itemSize - 1
-      );
+  const handleSpinEnd = () => {
+    setIsSpinning(false);
+  };
 
-      const newFocusedIndex = middleIndex % items.length;
-
-      setFocusedIndex(newFocusedIndex);
-    },
-    [containerWidth, focusedIndex]
-  );
-
-  const updatePositions = useCallback(() => {
-    if (containerWidth) {
-      const newPositions = arrangeChildren({
-        container: containerRef,
-        length: items.length,
-        itemSize,
-        focusedIndex,
-        containerWidth,
-        positions,
-      });
-
-      setPositions(newPositions);
-    }
-  }, [
-    containerRef.current,
-    items.length,
+  const { focusedIndex, animationConfig } = useSpinnerAnimation({
+    items,
+    target,
+    containerWidth,
     itemSize,
+    preselectItem,
+    isSpinning,
+    onAnimationEnd: handleSpinEnd,
+  });
+
+  const { positions } = useSpinnerPositions({
+    items,
     focusedIndex,
     containerWidth,
-    positions,
-  ]);
-
-  useEffect(() => {
-    updatePositions();
-  }, [focusedIndex]);
-
-  const props = useSpring({
-    marginLeft: `-${offset}px`,
-    config: {
-      duration: isSpinning ? 4000 : 0,
-      tension: 200,
-      friction: 10,
-      easing: easings.easeOutQuad,
-    },
-    reset: true,
-    onRest: () => {
-      setIsSpinning(false);
-    },
-    onChange: handleAnimationChange,
+    itemSize,
+    containerRef,
   });
 
   const handleOnSpin = () => {
@@ -94,31 +54,13 @@ const Spinner = ({ preselectItem = 4 }: Props) => {
     setIsSpinning(true);
   };
 
-  const updateContainerWidth = () => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.clientWidth);
-    }
-  };
-
-  useEffect(() => {
-    updateContainerWidth();
-    updatePositions();
-
-    const handleResize = () => {
-      updateContainerWidth();
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [containerRef.current, containerWidth]);
-
   return (
     <div className={styles.container}>
       <div className={styles.spinbox} ref={containerRef}>
-        <animated.div className={styles['spinbox-wrapper']} style={props}>
+        <animated.div
+          className={styles['spinbox-wrapper']}
+          style={animationConfig}
+        >
           {items.map((item, i) => (
             <div
               key={item}

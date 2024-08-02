@@ -30,9 +30,7 @@ export const arrangeChildren = ({
     }
   }
 
-  // This ensures that items that were out of view during a resize
-  // are brought back into view when the window is resized
-
+  // Make sure items that were out of view during a resize are brought back into view
   for (let x = start; x < start + itemsToCenter; x++) {
     const wrappedIndex = (x + length) % length;
 
