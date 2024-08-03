@@ -3,24 +3,30 @@
 .button {
   display: flex;
   position: relative;
+
   justify-content: center;
   gap: gutter();
-  opacity: 1;
 
   cursor: pointer;
 
   margin: gutter(10) auto auto auto;
 
-  border: none;
+  box-shadow: $box-shadow-default;
 
-  background: linear-gradient(darken($mint, 10%), $white, darken($mint, 10%));
+  border: none;
+  background: linear-gradient(
+    darken($tertiary-color, 10%),
+    $white,
+    darken($tertiary-color, 10%)
+  );
 
   padding: gutter(3) gutter(5);
 
   min-width: 300px;
+
   color: $jet-black;
   font-weight: 700;
-  font-size: 14px;
+  font-size: $font-size-default;
   font-family: 'Open Sans', sans-serif;
 
   text-align: center;
@@ -34,9 +40,9 @@
 
   &:hover {
     background: linear-gradient(
-      darken($mint, 10%) 20%,
+      darken($tertiary-color, 10%) 20%,
       $white,
-      darken($mint, 10%) 80%
+      darken($tertiary-color, 10%) 80%
     );
   }
 
@@ -46,6 +52,7 @@
 
   &:disabled:hover {
     cursor: initial;
+
     background: linear-gradient($grey 20%, $light-grey, $grey 80%);
   }
 }

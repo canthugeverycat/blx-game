@@ -1,5 +1,6 @@
-import { easings, useSpring } from '@react-spring/web';
 import { useCallback, useMemo, useState } from 'react';
+
+import { easings, useSpring } from '@react-spring/web';
 
 type Props = {
   id: number;
@@ -18,6 +19,22 @@ type SpringProps = {
   };
 };
 
+/**
+ * Manages the reel animation as it moves.
+ *
+ * @param {number} id
+ * @param {number[]} items Reel items
+ * @param {number} target Item index to stop at
+ * @param {number} containerWidth
+ * @param {number} itemSize
+ * @param {number} preselectItem Item to initially select
+ * @param {boolean} isSpinning
+ * @param {function} onAnimationEnd Callback function
+ *
+ * @returns {{ focusedIndex: number, animationConfig: Object }}
+ * @returns {focusedIndex} The index of the currently focused item.
+ * @returns {animationConfig} The configuration for the spinner animation.
+ */
 export const useSpinnerAnimation = ({
   id,
   items,
@@ -30,15 +47,20 @@ export const useSpinnerAnimation = ({
 }: Props) => {
   const [focusedIndex, setFocusedIndex] = useState(preselectItem);
 
+  // Calculate offset for the container
   const offset = useMemo(() => {
     return containerWidth
       ? itemSize * (target + 1) - itemSize / 2 - containerWidth / 2
       : 0;
   }, [target, containerWidth]);
 
+  /**
+   * Detect what element is in focus
+   */
   const handleAnimationChange = useCallback(
     ({ value: { marginLeft } }: SpringProps) => {
       const containerCenter = containerWidth / 2 + itemSize / 2;
+
       const middleIndex = Math.round(
         (parseFloat(marginLeft) * -1 + containerCenter) / itemSize - 1
       );

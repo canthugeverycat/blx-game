@@ -1,5 +1,13 @@
 import { RefObject, useEffect, useState } from 'react';
 
+/**
+ * Calculates the width of an element
+ *
+ * @param {any} containerRef A reference to the element
+ *
+ * @returns {{ containerWidth: number }}
+ * @returns {containerWidth} The current width of the container in pixels.
+ */
 export const useContainerWidth = (
   containerRef: RefObject<HTMLDivElement>
 ): { containerWidth: number } => {

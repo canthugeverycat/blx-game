@@ -1,18 +1,23 @@
 @import '@/styles/variables.module.scss';
 @import '@/styles/animations.module.scss';
 
-$gem-size: 40px;
+$tracker-size: 40px;
 $border-width: 40px;
 
-.spinbox {
+.reel {
   position: relative;
+
   box-shadow: $box-shadow-default;
+
   border-top: $border-default;
   border-bottom: $border-default;
   border-radius: $border-radius-large;
+
   padding: gutter(10) gutter(0);
+
   width: 100%;
   max-width: $item-size * 18;
+
   overflow: hidden;
 
   &:before,
@@ -21,20 +26,24 @@ $border-width: 40px;
     top: 0;
     left: 0;
     z-index: 999;
+
     border-right: $border-default;
     border-left: $border-default;
     border-radius: $border-radius-large 0 0 $border-radius-large;
     background: url('../../assets/tile.jpeg');
     background-size: 100px;
     background-repeat: repeat;
+
     width: $border-width;
     height: 100%;
+
     content: '';
   }
 
   &:after {
     right: 0;
     left: unset;
+
     border-radius: 0 $border-radius-large $border-radius-large 0;
   }
 }
@@ -43,11 +52,14 @@ $border-width: 40px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background: linear-gradient(90deg, $mint, $white, $mint);
-  width: calc($gem-size * 0.8);
 
+  transform: translate(-50%, -50%);
+
+  z-index: -1;
+
+  background: linear-gradient(90deg, $tertiary-color, $white, $tertiary-color);
+
+  width: calc($tracker-size * 0.8);
   height: 100%;
 
   &.animate {
@@ -60,27 +72,36 @@ $border-width: 40px;
   top: 50%;
   top: 0;
   left: 50%;
-  transform: translateX(-$gem-size / 2);
-  width: $gem-size;
+
+  transform: translateX(-$tracker-size / 2);
+
+  width: $tracker-size;
   height: 100%;
 
   &:before,
   &:after {
     position: absolute;
-    top: -$gem-size/2;
+    top: -$tracker-size/2;
+
     border-radius: 50%;
-    background: radial-gradient(lighten($purple, 10%) 30%, $purple 60%);
-    width: $gem-size;
-    height: $gem-size;
+    background: radial-gradient(
+      lighten($secondary-color, 10%) 30%,
+      $secondary-color 60%
+    );
+
+    width: $tracker-size;
+    height: $tracker-size;
+
     content: '';
   }
   &:after {
     top: unset;
-    bottom: -$gem-size/2;
+    bottom: -$tracker-size/2;
   }
 }
 
 .wrapper {
   display: flex;
+
   will-change: transform;
 }

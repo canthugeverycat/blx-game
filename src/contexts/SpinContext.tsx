@@ -1,8 +1,8 @@
-import { SOUNDS } from '@/globals/const';
 import React, { createContext, useContext, useState } from 'react';
 
-import isPrime from './isPrime';
-import { playSoundEffect } from './playSoundEffect';
+import { SOUNDS } from '@/globals/const';
+import isPrime from '@/utils/isPrime';
+import { playSoundEffect } from '@/utils/playSoundEffect';
 
 interface SpinContextType {
   spinAll: () => void;
@@ -28,20 +28,33 @@ export const useSpinContext = () => {
 type Props = {
   children: React.ReactNode;
 };
+
 export const SpinProvider = ({ children }: Props) => {
   const [isSpinning, setIsSpinning] = useState(false);
-  const [activeSpinners, setActiveSpinners] = useState(0);
-  const [count, setCount] = useState(1);
+
+  const [count, setCount] = useState(1); // Number of reels
+  const [activeSpinners, setActiveSpinners] = useState(0); // Number of reels currently spinning
+
   const [winnings, setWinnings] = useState(0);
 
+  /**
+   * Starts the spinning of all reels
+   */
   const spinAll = () => {
+    playSoundEffect(SOUNDS.START_SPIN);
     setIsSpinning(true);
   };
 
+  /**
+   * Handler that gets called on spin of every reel
+   */
   const onSpinStart = () => {
     setActiveSpinners((prev) => prev + 1);
   };
 
+  /**
+   * Handlers that gets called on end of every reel spin
+   */
   const onSpinEnd = (result: number) => {
     const newActiveSpinners = activeSpinners - 1;
 
@@ -53,6 +66,7 @@ export const SpinProvider = ({ children }: Props) => {
 
     if (isPrime(result)) {
       playSoundEffect(SOUNDS.WIN);
+
       setWinnings((prev) => prev + result);
     }
   };

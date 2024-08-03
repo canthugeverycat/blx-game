@@ -1,17 +1,21 @@
-import { SOUNDS } from '@/globals/const';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { useSpinContext } from '@/contexts/SpinContext';
+import {
+  BREAKPOINT_TABLET_PX,
+  DEFAULT_PRESELECTED_INDEX,
+  SLOT_ITEM_SIZE,
+  SOUNDS,
+  SPIN_DELAY_MS,
+} from '@/globals/const';
 import { useContainerWidth } from '@/hooks/useContainerWidth';
 import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
 import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
-import variables from '@/styles/variables.module.scss';
 import { playSoundEffect } from '@/utils/playSoundEffect';
-import { useSpinContext } from '@/utils/SpinContext';
 import { animated } from '@react-spring/web';
-import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './index.module.scss';
 import Item from './Item';
-
-const itemSize = parseFloat(variables.itemSize);
 
 type Props = {
   id: number;
@@ -19,20 +23,33 @@ type Props = {
   preselectItem?: number;
 };
 
-const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
+/**
+ * A spinning reel in a slot machine
+ * This is the root point for spinning logic
+ *
+ * @param {number} id
+ * @param {number[]} items The reel items
+ * @param {number} preselectItem The item index to preselect
+ */
+const Reel = ({
+  id,
+  preselectItem = DEFAULT_PRESELECTED_INDEX,
+  items,
+}: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { containerWidth } = useContainerWidth(containerRef);
-
   const { isSpinning, onSpinStart, onSpinEnd } = useSpinContext();
 
+  // The end index of a spin
   const [target, setTarget] = useState(preselectItem);
 
+  // Animate the reel and detect the middle item
   const { focusedIndex, animationConfig } = useSpinnerAnimation({
     id,
     items,
     target,
     containerWidth,
-    itemSize,
+    itemSize: SLOT_ITEM_SIZE,
     preselectItem,
     isSpinning,
     onAnimationEnd: (i) => {
@@ -40,28 +57,30 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
     },
   });
 
+  // Position the items inside the reel
   const { positions } = useSpinnerPositions({
     items,
     focusedIndex,
     containerWidth,
-    itemSize,
+    itemSize: SLOT_ITEM_SIZE,
     containerRef,
   });
 
   useEffect(() => {
     if (isSpinning) {
+      // Spin starts
       const timeout = setTimeout(
         () => {
           const result = Math.floor(Math.random() * items.length);
-          const buffer = containerWidth > 768 ? 40 : 20;
+          // Ensure the reel will spin for at least 1 round before stopping
+          const buffer = containerWidth > BREAKPOINT_TABLET_PX ? 40 : 20;
 
           setTarget((prev) => prev + buffer * id + result);
 
-          playSoundEffect(SOUNDS.START_SPIN);
-
           onSpinStart();
         },
-        100 * id - 100
+        // We add a delay if there are multiple reels so they start one by one
+        SPIN_DELAY_MS * id - SPIN_DELAY_MS
       );
 
       return () => clearTimeout(timeout);
@@ -75,10 +94,14 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
   }, [focusedIndex]);
 
   return (
-    <div className={styles.spinbox} ref={containerRef}>
-      <animated.div className={styles.wrapper} style={animationConfig}>
+    <div className={styles.reel} ref={containerRef}>
+      <animated.div
+        data-testid="reel-wrapper"
+        className={styles.wrapper}
+        style={animationConfig}
+      >
         {items.map((item, i) => {
-          const offset = items.length * itemSize * positions[i];
+          const offset = items.length * SLOT_ITEM_SIZE * positions[i];
 
           return (
             <Item
@@ -97,4 +120,4 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
   );
 };
 
-export default Spinbox;
+export default Reel;
