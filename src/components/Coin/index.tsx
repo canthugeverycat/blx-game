@@ -13,7 +13,7 @@ type SideProps = {
 const Side = ({ className }: SideProps) => (
   <div className={className}>
     <div className={styles.inner}>
-      <Image className={styles.emblem} src={Emblem} alt="" />
+      <Image className={styles.emblem} src={Emblem} alt="" priority={true} />
     </div>
   </div>
 );
