@@ -2,7 +2,7 @@ import variables from '@/styles/variables.module.scss';
 
 // Sound Effects
 export const SOUNDS = {
-  START_SPIN: {
+  INSERT_COIN: {
     url: 'https://cdn.freesound.org/previews/348/348503_321967-lq.mp3',
     start: 0.2,
     end: 0.7,

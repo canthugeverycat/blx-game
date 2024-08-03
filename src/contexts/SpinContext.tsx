@@ -41,7 +41,7 @@ export const SpinProvider = ({ children }: Props) => {
    * Starts the spinning of all reels
    */
   const spinAll = () => {
-    playSoundEffect(SOUNDS.START_SPIN);
+    playSoundEffect(SOUNDS.INSERT_COIN);
     setIsSpinning(true);
   };
 
