@@ -3,10 +3,11 @@ import Coin from '@/components/Coin';
 import CountSelector from '@/components/CountSelector';
 import Header from '@/components/Header';
 import Spinbox from '@/components/Spinbox';
+import { preloadAllSounds } from '@/utils/playSoundEffect';
 import shuffleArray from '@/utils/shuffleArray';
 import { useSpinContext } from '@/utils/SpinContext';
 import { animated, easings, useTransition } from '@react-spring/web';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './index.module.scss';
 
@@ -33,6 +34,10 @@ const App = () => {
       },
     }
   );
+
+  useEffect(() => {
+    preloadAllSounds();
+  }, []);
 
   return (
     <div className={styles.app}>

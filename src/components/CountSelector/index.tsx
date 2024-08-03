@@ -1,3 +1,5 @@
+import { SOUNDS } from '@/globals/const';
+import { playSoundEffect } from '@/utils/playSoundEffect';
 import { useSpinContext } from '@/utils/SpinContext';
 import React, { memo } from 'react';
 
@@ -7,10 +9,12 @@ const CountSelector = () => {
   const { isSpinning, count, setCount } = useSpinContext();
 
   const handleDecrease = () => {
+    playSoundEffect(SOUNDS.REMOVE_SLOT);
     setCount((prev) => (prev === 1 ? prev : prev - 1));
   };
 
   const handleIncrease = () => {
+    playSoundEffect(SOUNDS.ADD_SLOT);
     setCount((prev) => (prev === 4 ? prev : prev + 1));
   };
 

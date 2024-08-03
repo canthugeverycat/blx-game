@@ -1,8 +1,8 @@
 import { AppProps } from 'next/app';
 import React from 'react';
 
-import '@/globals/root.scss';
-import '@/globals/reset.scss';
+import '@/styles/root.scss';
+import '@/styles/reset.scss';
 
 import { SpinProvider } from '@/utils/SpinContext';
 

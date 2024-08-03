@@ -1,7 +1,9 @@
-import variables from '@/globals/variables.module.scss';
+import { SOUNDS } from '@/globals/const';
 import { useContainerWidth } from '@/hooks/useContainerWidth';
 import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
 import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
+import variables from '@/styles/variables.module.scss';
+import { playSoundEffect } from '@/utils/playSoundEffect';
 import { useSpinContext } from '@/utils/SpinContext';
 import { animated } from '@react-spring/web';
 import React, { useEffect, useRef, useState } from 'react';
@@ -55,6 +57,8 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
 
           setTarget((prev) => prev + buffer * id + result);
 
+          playSoundEffect(SOUNDS.START_SPIN);
+
           onSpinStart();
         },
         100 * id - 100
@@ -63,6 +67,12 @@ const Spinbox = ({ id, preselectItem = 4, items }: Props) => {
       return () => clearTimeout(timeout);
     }
   }, [isSpinning]);
+
+  useEffect(() => {
+    if (isSpinning) {
+      playSoundEffect(SOUNDS.STEP_TICK);
+    }
+  }, [focusedIndex]);
 
   return (
     <div className={styles.spinbox} ref={containerRef}>

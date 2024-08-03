@@ -1,6 +1,8 @@
+import { SOUNDS } from '@/globals/const';
 import React, { createContext, useContext, useState } from 'react';
 
 import isPrime from './isPrime';
+import { playSoundEffect } from './playSoundEffect';
 
 interface SpinContextType {
   spinAll: () => void;
@@ -50,6 +52,7 @@ export const SpinProvider = ({ children }: Props) => {
     setActiveSpinners(newActiveSpinners);
 
     if (isPrime(result)) {
+      playSoundEffect(SOUNDS.WIN);
       setWinnings((prev) => prev + result);
     }
   };
