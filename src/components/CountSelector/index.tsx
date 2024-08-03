@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
+import { useSpinContext } from '@/contexts/SpinContext';
 import { REELS_COUNT_MAX, REELS_COUNT_MIN, SOUNDS } from '@/globals/const';
 import { playSoundEffect } from '@/utils/playSoundEffect';
-import { useSpinContext } from '@/utils/SpinContext';
 
 import styles from './index.module.scss';
 

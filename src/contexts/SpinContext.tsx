@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import { SOUNDS } from '@/globals/const';
-
-import isPrime from './isPrime';
-import { playSoundEffect } from './playSoundEffect';
+import isPrime from '@/utils/isPrime';
+import { playSoundEffect } from '@/utils/playSoundEffect';
 
 interface SpinContextType {
   spinAll: () => void;

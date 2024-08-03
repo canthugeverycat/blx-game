@@ -23,6 +23,7 @@ const Item = ({ item, isSelected, offset }: Props) => {
 
   return (
     <div
+      data-testid={`reel-item-${item}`}
       key={item}
       className={`${styles.item} ${isSelected ? styles.active : ''}`}
       style={{

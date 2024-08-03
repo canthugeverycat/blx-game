@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Reel from '@/components/Reel';
+import { useSpinContext } from '@/contexts/SpinContext';
 import { GITHUB_URL } from '@/globals/const';
 import { preloadAllSounds } from '@/utils/playSoundEffect';
 import shuffleArray from '@/utils/shuffleArray';
-import { useSpinContext } from '@/utils/SpinContext';
 import { animated, easings, useTransition } from '@react-spring/web';
 
 import styles from './index.module.scss';

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useSpinContext } from '@/contexts/SpinContext';
 import {
   BREAKPOINT_TABLET_PX,
   DEFAULT_PRESELECTED_INDEX,
@@ -11,7 +12,6 @@ import { useContainerWidth } from '@/hooks/useContainerWidth';
 import { useSpinnerAnimation } from '@/hooks/useSpinnerAnimation';
 import { useSpinnerPositions } from '@/hooks/useSpinnerPositions';
 import { playSoundEffect } from '@/utils/playSoundEffect';
-import { useSpinContext } from '@/utils/SpinContext';
 import { animated } from '@react-spring/web';
 
 import styles from './index.module.scss';
@@ -95,7 +95,11 @@ const Reel = ({
 
   return (
     <div className={styles.reel} ref={containerRef}>
-      <animated.div className={styles.wrapper} style={animationConfig}>
+      <animated.div
+        data-testid="reel-wrapper"
+        className={styles.wrapper}
+        style={animationConfig}
+      >
         {items.map((item, i) => {
           const offset = items.length * SLOT_ITEM_SIZE * positions[i];
 

@@ -57,7 +57,7 @@ $border-width: 40px;
 
   z-index: -1;
 
-  background: linear-gradient(90deg, $mint, $white, $mint);
+  background: linear-gradient(90deg, $tertiary-color, $white, $tertiary-color);
 
   width: calc($tracker-size * 0.8);
   height: 100%;
@@ -84,7 +84,10 @@ $border-width: 40px;
     top: -$tracker-size/2;
 
     border-radius: 50%;
-    background: radial-gradient(lighten($purple, 10%) 30%, $purple 60%);
+    background: radial-gradient(
+      lighten($secondary-color, 10%) 30%,
+      $secondary-color 60%
+    );
 
     width: $tracker-size;
     height: $tracker-size;

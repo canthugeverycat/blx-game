@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Coin from '@/components/Coin';
-import { useSpinContext } from '@/utils/SpinContext';
+import { useSpinContext } from '@/contexts/SpinContext';
 import { animated, useSpring } from '@react-spring/web';
 
 import styles from './index.module.scss';
