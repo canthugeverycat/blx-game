@@ -13,21 +13,19 @@ $red: #862b1d;
 $dark-purple: #1b1b42;
 
 $dark-teal: #10191f;
-$white: #fff;
 $purple: #9e72c3;
 $pink: #f0f;
 $mint: #0ff;
-$grey: #6e6e6e;
 $gold: #f6af0f;
 $dark-blue: #2b344d;
 
 /**
  * Theme
  */
-$primary-color: $pink;
-$secondary-color: $blue;
-$background-default: $white;
-$background-body: $secondary-color;
+$primary-color: $gold;
+$secondary-color: $purple;
+$tertiary-color: $mint;
+$body-color: $dark-purple;
 
 /**
  * Borders
@@ -35,21 +33,13 @@ $background-body: $secondary-color;
 $border-default: 4px solid $dark-blue;
 
 $border-radius-default: 4px;
-$border-radius-small: 2px;
 $border-radius-large: 8px;
-$border-radius-xl: 40px;
 
 /**
- * Effects
+ * Shadows
  */
 $text-shadow-default: 1px 1px 2px rgba(0, 0, 0, 0.2);
 $box-shadow-default: 2px 2px 4px rgba(0, 0, 0, 0.3);
-$box-shadow-vertical: 0px 2px 4px rgba(0, 0, 0, 0.3);
-
-$box-shadow-glow:
-  0 0 60px 30px $white,
-  0 0 100px 60px $mint,
-  0 0 140px 90px $purple;
 
 /**
  * Breakpoints
@@ -64,10 +54,19 @@ $gutter-base: 4px;
   @return $n * $gutter-base;
 }
 
-// Sizes
+/**
+ * Sizes
+ */
 $item-size: 50px;
 
-// Exports
+$font-size-default: 14px;
+$font-size-s: 12px;
+$font-size-l: 16px;
+$font-size-xxxl: 60px;
+
+/**
+ * Exports
+ */
 :export {
   itemSize: $item-size;
 }

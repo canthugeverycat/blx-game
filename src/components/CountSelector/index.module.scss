@@ -3,34 +3,39 @@
 
 .container {
   display: flex;
+
   flex-direction: column;
   align-items: center;
-
   gap: gutter(2);
 
   font-family: 'Open Sans', sans-serif;
+
   user-select: none;
 }
 
 .label {
   color: $light-grey;
-  font-size: 14px;
+  font-size: $font-size-default;
 }
 
 .controls {
   display: flex;
-  align-self: center;
 
+  align-self: center;
   gap: gutter(1);
+
   padding: gutter();
 }
 
 .control {
   cursor: pointer;
+
   border: none;
   border-radius: $border-radius-default;
   background: $white;
+
   padding: gutter() gutter(2);
+
   color: $light-grey;
   font-weight: 700;
 
@@ -45,8 +50,10 @@
 
 .value {
   @extend .control;
+
   cursor: inherit;
 
   background: none;
+
   pointer-events: none;
 }

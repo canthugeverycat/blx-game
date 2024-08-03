@@ -1,3 +1,5 @@
+import variables from '@/styles/variables.module.scss';
+
 // Sound Effects
 export const SOUNDS = {
   START_SPIN: {
@@ -23,3 +25,18 @@ export const SOUNDS = {
     start: 0.21,
   },
 } as const;
+
+// Breakpoints
+export const BREAKPOINT_TABLET_PX = 768 as const;
+
+// Reels
+export const REELS_COUNT_MIN = 1 as const;
+export const REELS_COUNT_MAX = 4 as const;
+
+// Spinning Logic
+export const DEFAULT_PRESELECTED_INDEX = 9 as const;
+export const SLOT_ITEM_SIZE = parseFloat(variables.itemSize);
+export const SPIN_DELAY_MS = 100 as const;
+
+// Misc
+export const GITHUB_URL = 'https://github.com/canthugeverycat' as const;

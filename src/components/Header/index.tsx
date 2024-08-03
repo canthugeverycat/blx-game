@@ -1,10 +1,14 @@
+import React from 'react';
+
 import Coin from '@/components/Coin';
 import CountSelector from '@/components/CountSelector';
 import Winnings from '@/components/Winnings';
-import React from 'react';
 
 import styles from './index.module.scss';
 
+/**
+ * A header component
+ */
 const Header = () => (
   <div className={styles.header}>
     <div className={styles.container}>

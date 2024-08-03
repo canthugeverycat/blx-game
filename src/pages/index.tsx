@@ -1,11 +1,13 @@
+import React, { useEffect, useState } from 'react';
+
 import Button from '@/components/Button';
 import Header from '@/components/Header';
-import Spinbox from '@/components/Spinbox';
+import Reel from '@/components/Reel';
+import { GITHUB_URL } from '@/globals/const';
 import { preloadAllSounds } from '@/utils/playSoundEffect';
 import shuffleArray from '@/utils/shuffleArray';
 import { useSpinContext } from '@/utils/SpinContext';
 import { animated, easings, useTransition } from '@react-spring/web';
-import React, { useEffect, useState } from 'react';
 
 import styles from './index.module.scss';
 
@@ -13,12 +15,6 @@ const data = Array.from({ length: 20 }, (_, i) => (i % 20) + 1);
 
 const App = () => {
   const [items, setItems] = useState<number[][]>([data, data, data, data]);
-
-  useEffect(() => {
-    const newItems = items.map((item) => shuffleArray(item));
-
-    setItems(newItems);
-  }, []);
 
   const { spinAll, isSpinning, count } = useSpinContext();
 
@@ -34,6 +30,10 @@ const App = () => {
   );
 
   useEffect(() => {
+    // Shuffles the items and preloads sound effects
+    const newItems = items.map((item) => shuffleArray(item));
+    setItems(newItems);
+
     preloadAllSounds();
   }, []);
 
@@ -47,7 +47,7 @@ const App = () => {
             key={i}
             className={styles['transition-wrapper']}
           >
-            <Spinbox id={i + 1} items={items[i]} preselectItem={9} />
+            <Reel id={i + 1} items={items[i]} preselectItem={9} />
           </animated.div>
         ))}
 
@@ -56,7 +56,7 @@ const App = () => {
         </Button>
       </div>
       <div className={styles.footer}>
-        <a href="https://github.com/canthugeverycat" target="_blank">
+        <a href={GITHUB_URL} target="_blank">
           github@canthugeverycat
         </a>
       </div>

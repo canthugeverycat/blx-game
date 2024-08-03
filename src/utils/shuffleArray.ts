@@ -1,3 +1,9 @@
+/**
+ * Shuffles the provided array
+ *
+ * @param {T[]} array
+ * @returns {T[]}
+ */
 const shuffleArray = (array: any[]) => {
   const result = [...array];
   let i = array.length;

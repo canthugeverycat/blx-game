@@ -1,5 +1,6 @@
-import InsertableCoin from '@/components/InsertableCoin';
 import React, { useState } from 'react';
+
+import InsertableCoin from '@/components/InsertableCoin';
 
 import styles from './index.module.scss';
 
@@ -9,6 +10,13 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
+/**
+ * Just a plain old button component
+ *
+ * @param {React.ReactNode} children
+ * @param {function} onClick
+ * @param {boolean} disabled
+ */
 const Button = ({ children, onClick, disabled }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -22,7 +30,7 @@ const Button = ({ children, onClick, disabled }: ButtonProps) => {
     >
       {children}
 
-      <InsertableCoin isReady={isHovered} />
+      <InsertableCoin {...{ isHovered }} />
     </button>
   );
 };

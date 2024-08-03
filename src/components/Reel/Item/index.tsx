@@ -1,6 +1,7 @@
+import React, { useMemo } from 'react';
+
 import Coin from '@/components/Coin';
 import isPrime from '@/utils/isPrime';
-import React, { useMemo } from 'react';
 
 import styles from './index.module.scss';
 
@@ -10,6 +11,13 @@ type Props = {
   offset: number;
 };
 
+/**
+ * A single item in a reel
+ *
+ * @param {number} item
+ * @param {boolean} isSelected
+ * @param {number} offset Calculated offset position of the item
+ */
 const Item = ({ item, isSelected, offset }: Props) => {
   const isWinningNumber = useMemo(() => isPrime(item), [item]);
 

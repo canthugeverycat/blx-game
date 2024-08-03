@@ -1,10 +1,14 @@
+import React from 'react';
+
 import Coin from '@/components/Coin';
 import { useSpinContext } from '@/utils/SpinContext';
 import { animated, useSpring } from '@react-spring/web';
-import React from 'react';
 
 import styles from './index.module.scss';
 
+/**
+ * Displays total winnings of the player
+ */
 const Winnings = () => {
   const { winnings } = useSpinContext();
 
