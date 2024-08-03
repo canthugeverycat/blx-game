@@ -1,5 +1,8 @@
 # SPIN-O-MATIC
 
+🟢 [Live Preview](https://xsg7ny-3000.csb.app)
+📦 [Codesandbox](https://codesandbox.io/p/github/canthugeverycat/blx-game)
+
 This covers the documentation for the project, including setup, structure, and other essential details.
 
 ## Table of Contents
