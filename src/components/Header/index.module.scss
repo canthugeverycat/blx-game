@@ -2,20 +2,22 @@
 
 .header {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-self: center;
-  width: calc(80% + 60px);
+  gap: gutter(10);
+  width: calc(100%);
   max-width: $item-size * 18;
 }
 
-.header > * {
-  flex: 1 1 50%;
-  box-sizing: border-box;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 
-  &:nth-child(3) {
-    flex-basis: 100%;
-    margin-top: gutter(10);
-    margin-bottom: gutter(8);
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: gutter(4);
   }
 }
 

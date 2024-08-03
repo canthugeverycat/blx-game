@@ -21,7 +21,7 @@ const Item = ({ item, isSelected, offset }: Props) => {
         transform: `translateX(${offset}px) scale(${isSelected ? '1.5' : '1'})`,
       }}
     >
-      <Coin size="s" color={isWinningNumber ? 'gold' : 'dark'} />
+      <Coin color={isWinningNumber ? 'gold' : 'dark'} />
       <span className={styles.value}>{item}</span>
     </div>
   );

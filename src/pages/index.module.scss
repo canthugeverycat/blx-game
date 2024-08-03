@@ -22,8 +22,12 @@
 
 .footer {
   margin-top: gutter(10);
-  color: lighten($dark-purple, 10%);
   font-size: 12px;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
+
+  a {
+    color: lighten($dark-purple, 10%);
+    text-decoration: none;
+  }
 }

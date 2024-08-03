@@ -1,0 +1,18 @@
+@import '@/styles/variables.module.scss';
+
+.container {
+  display: flex;
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% + 25px);
+  align-items: center;
+  gap: gutter(2);
+}
+
+.slot {
+  display: inline-block;
+  border-radius: $border-radius-default;
+  background: $black;
+  width: 6px;
+  height: 30px;
+}

@@ -20,7 +20,7 @@ const CountSelector = () => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.label}>Number of spins</p>
+      <p className={styles.label}>Number of reels</p>
       <div className={styles.controls}>
         <button
           className={styles.control}

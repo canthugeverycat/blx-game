@@ -1,6 +1,4 @@
 import Button from '@/components/Button';
-import Coin from '@/components/Coin';
-import CountSelector from '@/components/CountSelector';
 import Header from '@/components/Header';
 import Spinbox from '@/components/Spinbox';
 import { preloadAllSounds } from '@/utils/playSoundEffect';
@@ -57,7 +55,11 @@ const App = () => {
           Spin
         </Button>
       </div>
-      <div className={styles.footer}>August 2024</div>
+      <div className={styles.footer}>
+        <a href="https://github.com/canthugeverycat" target="_blank">
+          github@canthugeverycat
+        </a>
+      </div>
     </div>
   );
 };

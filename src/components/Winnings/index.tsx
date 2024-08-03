@@ -15,7 +15,8 @@ const Winnings = () => {
 
   return (
     <div className={styles.container}>
-      Winnings: <Coin size="xs" />{' '}
+      Winnings:
+      <Coin size="xs" />
       <span className={styles.value}>
         <animated.span>
           {animatedProps.value.to((v) => v.toFixed(0))}

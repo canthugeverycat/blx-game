@@ -7,13 +7,15 @@ import styles from './index.module.scss';
 
 const Header = () => (
   <div className={styles.header}>
-    <h1 className={styles.title}>
-      Spin
-      <Coin isAnimated={true} color="purple" />
-      matic
-    </h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>
+        Spin
+        <Coin isAnimated={true} size="l" color="purple" />
+        matic
+      </h1>
 
-    <Winnings />
+      <Winnings />
+    </div>
 
     <CountSelector />
   </div>

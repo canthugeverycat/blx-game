@@ -1,8 +1,9 @@
 @import '@/styles/animations.module.scss';
 @import '@/styles/variables.module.scss';
 
-$size: 50px;
-$size--s: 40px;
+$size: 40px;
+$size--l: 50px;
+$size--s: 30px;
 $size--xs: 20px;
 
 .wrapper {
@@ -148,16 +149,47 @@ $size--xs: 20px;
   }
 }
 
+.wrapper.size-l {
+  width: $size--l;
+  height: $size--l;
+
+  .coin {
+    font-size: $size--l;
+  }
+
+  .coin:before,
+  .coin:after,
+  .front,
+  .back {
+    width: $size--l;
+    height: $size--l;
+  }
+
+  .inner {
+    width: calc($size--l * 0.75);
+    height: calc($size--l * 0.75);
+  }
+
+  .emblem {
+    width: calc($size--l * 0.5);
+    height: calc($size--l * 0.5);
+  }
+}
+
 .wrapper.color-purple {
   .coin,
   .inner {
     background: darken($purple, 10%);
   }
-  .coin:before,
-  .coin:after,
+
   .front,
   .back {
     background: $purple;
+  }
+
+  .coin:before,
+  .coin:after {
+    background: darken($purple, 10%);
   }
 }
 
@@ -166,12 +198,17 @@ $size--xs: 20px;
   .inner {
     background: darken($black, 10%);
   }
-  .coin:before,
-  .coin:after,
+
   .front,
   .back {
     background: $black;
   }
+
+  .coin:before,
+  .coin:after {
+    background: darken($black, 10%);
+  }
+
   .emblem {
     opacity: 0;
   }
