@@ -1,6 +1,6 @@
 # SPIN-O-MATIC
 
-🟢 [Live Preview](https://mn3xc3-3000.csb.app)  
+🟢 [Live Preview](https://blx-spinner-82fd58ce25ac.herokuapp.com)  
 📦 [Codesandbox](https://codesandbox.io/p/github/canthugeverycat/blx-game)
 
 This covers the documentation for the project, including setup, structure, and other essential details.
